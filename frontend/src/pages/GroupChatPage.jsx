@@ -93,12 +93,12 @@ channel.sendMessage({
     <div className="h-[93vh]">
       <Chat client={chatClient}>
         <Channel channel={channel}>
-          <div className="w-full relative flex flex-col justify-end  ">
-                    <button
-          onClick={handleVideoCall}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg "
-        >
-          Start Video Call
+          <div className="w-full relative">
+            <button
+              onClick={handleVideoCall}
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+            >
+              Start Video Call
         </button>
                  {/* <CallButton handleVideoCall={handleVideoCall} /> */}
             <Window>
