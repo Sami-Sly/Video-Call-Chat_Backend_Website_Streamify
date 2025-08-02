@@ -74,3 +74,11 @@ export async function getGroupChannel() {
   const response = await axiosInstance.get("/users/group-Gets");
   return response.data;
 }
+
+export async function createGroup(GroupformData) {
+  const response = await axiosInstance.post(
+    "/users/group/create",
+    GroupformData
+  );
+  return response.data;
+}

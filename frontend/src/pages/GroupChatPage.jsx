@@ -17,6 +17,7 @@ import {
 import { StreamChat } from "stream-chat";
 
 import ChatLoader from "../components/Chatloader";
+import GroupButton from "../components/GroupButton";
 
 const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
 
@@ -94,13 +95,8 @@ channel.sendMessage({
       <Chat client={chatClient}>
         <Channel channel={channel}>
           <div className="w-full relative">
-            <button
-              onClick={handleVideoCall}
-              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-            >
-              Start Video Call
-        </button>
-                 {/* <CallButton handleVideoCall={handleVideoCall} /> */}
+          
+                 <GroupButton handleVideoCall={handleVideoCall} />
             <Window>
               <ChannelHeader />
               <MessageList />

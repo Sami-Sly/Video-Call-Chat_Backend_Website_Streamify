@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import useAuthUser from "../hooks/useAuthUser";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getUserFriends } from "../lib/api";
+import { createGroup, getUserFriends } from "../lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 const CreateGroupForm = () => {
   const { authUser } = useAuthUser();
@@ -23,31 +23,52 @@ const CreateGroupForm = () => {
     );
   };
 
-  const handleSubmit = async () => {
-    if (!groupName || selected.length < 2) {
-      toast.error("Enter group name and select at least 2 friends");
-      return;
-    }
-
-    try {
-const res = await axios.post(
-  "http://localhost:5001/api/users/group/create",
-  {
-    name: groupName,
-    members: selected,
-  },
-  {
-    withCredentials: true, // IMPORTANT if you're using cookies for auth
+const handleSubmit = async () => {
+  if (!groupName || selected.length < 2) {
+    toast.error("Enter group name and select at least 2 friends");
+    return;
   }
-);
+
+  try {
+    const data = {
+      name: groupName,
+      members: selected,
+    };
+
+    const res = await createGroup(data); // using your utility function
+
+    toast.success("Group created!");
+    navigate(`/group-chat/${res.streamChannelId}`); // assuming `streamChannelId` comes from API
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Error creating group");
+  }
+};
+
+//   const handleSubmit = async () => {
+//     if (!groupName || selected.length < 2) {
+//       toast.error("Enter group name and select at least 2 friends");
+//       return;
+//     }
+
+//     try {
+// const res = await axios.post(
+//   "http://localhost:5001/api/users/group/create",
+//   {
+//     name: groupName,
+//     members: selected,
+//   },
+//   {
+//     withCredentials: true, // IMPORTANT if you're using cookies for auth
+//   }
+// );
 
 
-      toast.success("Group created!");
-      navigate(`/group-chat/${res.data.streamChannelId}`);
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Error creating group");
-    }
-  };
+//       toast.success("Group created!");
+//       navigate(`/group-chat/${res.data.streamChannelId}`);
+//     } catch (err) {
+//       toast.error(err.response?.data?.message || "Error creating group");
+//     }
+//   };
 
   const selectedFriends = friends.filter((f) => selected.includes(f._id));
   return (
@@ -119,35 +140,7 @@ const res = await axios.post(
   </div>
 </div>
 
-    // <div className="p-4   max-w-md mx-auto mt-4">
-    //   <h2 className="text-xl font-semibold mb-3">Create Group Chat</h2>
-    //   <input
-    //     type="text"
-    //     placeholder="Group name"
-    //     value={groupName}
-    //     onChange={(e) => setGroupName(e.target.value)}
-    //     className="w-full border p-2 rounded mb-4"
-    //   />
-    //   <div className="space-y-2 max-h-60 overflow-y-auto">
-    //     {friends.map((f) => (
-    //       <label key={f._id} className="flex items-center gap-2">
-    //         <input
-    //           type="checkbox"
-    //           checked={selected.includes(f._id)}
-    //           onChange={() => toggleSelect(f._id)}
-    //         />
-    //         <img src={f.profilePic} className="w-6 h-6 rounded-full" />
-    //         <span>{f.fullName}</span>
-    //       </label>
-    //     ))}
-    //   </div>
-    //   <button
-    //     onClick={handleSubmit}
-    //     className="mt-4 w-full bg-blue-600 text-white py-2 rounded"
-    //   >
-    //     Create Group
-    //   </button>
-    // </div>
+  
   );
 };
 
