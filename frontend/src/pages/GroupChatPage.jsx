@@ -78,6 +78,8 @@ channel.sendMessage({
 });
 
       toast.success("Group video call link shared!");
+
+      
     }
   };
   if (loading || !chatClient || !channel) return <ChatLoader />;
@@ -91,10 +93,10 @@ channel.sendMessage({
     <div className="h-[93vh]">
       <Chat client={chatClient}>
         <Channel channel={channel}>
-          <div className="w-full relative">
+          <div className="w-full relative flex flex-col justify-end  ">
                     <button
           onClick={handleVideoCall}
-          className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg "
         >
           Start Video Call
         </button>
