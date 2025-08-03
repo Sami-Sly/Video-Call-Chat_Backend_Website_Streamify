@@ -2,6 +2,9 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 import { upsertStreamUser } from "../lib/stream.js";
+
+
+
 const backgroundPalette = [
   "1abc9c", // turquoise
   "2ecc71", // emerald
