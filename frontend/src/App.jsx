@@ -121,7 +121,7 @@ const App = () => {
             path="/group-chat/:id"
             element={
               isAuthenticated && isOnboarded ? (
-                <Layout showSidebar={true}>
+                <Layout showSidebar={false}>
                   <GroupChatPage />
                 </Layout>
               ) : (
