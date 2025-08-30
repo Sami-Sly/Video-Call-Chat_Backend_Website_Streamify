@@ -9,6 +9,7 @@ const Navbar = () => {
   const { authUser } = useAuthUser();
   const location = useLocation();
   const isChatPage = location.pathname?.startsWith("/chat");
+  const isGroupChatPage = location.pathname?.startsWith("/group-chat");
 
   // const queryClient = useQueryClient();
   // const { mutate: logoutMutation } = useMutation({
@@ -25,7 +26,7 @@ const Navbar = () => {
     <div className="flex items-center justify-between w-full">
       
       {/* LOGO - ONLY IN THE CHAT PAGE */}
-      {isChatPage && (
+      {isChatPage &&  (
         <div className="pl-1 sm:pl-3">
           <Link to="/" className="flex items-center gap-1 sm:gap-2.5">
             <ShipWheelIcon className="w-6 h-6 sm:w-7 sm:h-7 md:size-9 text-primary" />
@@ -35,6 +36,18 @@ const Navbar = () => {
           </Link>
         </div>
       )}
+
+            {isGroupChatPage &&  (
+        <div className="pl-1 sm:pl-3">
+          <Link to="/" className="flex items-center gap-1 sm:gap-2.5">
+            <ShipWheelIcon className="w-6 h-6 sm:w-7 sm:h-7 md:size-9 text-primary" />
+            <span className="text-[0.7rem] sm:text-sm md:text-xl font-bold font-mono bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary tracking-tight sm:tracking-wide md:tracking-wider">
+              Video Calling App
+            </span>
+          </Link>
+        </div>
+      )}
+
 
       <div className="flex items-center gap-1.5 sm:gap-3 ml-auto">
         {/* Notification */}
