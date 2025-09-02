@@ -43,10 +43,17 @@ app.get("/", (req, res) => {
   res.send("Welcome to the backend server!");
 });
 
-app.get("/health", (req, res) => {
-  res.send("Welcome to the Health Backend Server!");
+app.get("/keep-alive", (req, res) => {
+  res.send("Still alive ✅");
 });
 
+setInterval(() => {
+  fetch(
+    "https://video-call-chat-backend-website-streamify.onrender.com/keep-alive"
+  )
+    .then(() => console.log("Pinged self to stay awake ✅"))
+    .catch((err) => console.error("Ping failed ❌", err));
+}, 5 * 60 * 1000);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
